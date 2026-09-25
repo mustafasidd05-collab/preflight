@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/hero_banner.svg" alt="Preflight — FastMCP Verification Engine for AI Coding Agents" width="100%">
+</p>
+
 # Preflight
 
 **FastMCP Verification Engine for AI Coding Agents — Powered by SerpApi Live Search**
@@ -8,7 +12,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-brightgreen.svg)](https://www.python.org/)
 [![Model Context Protocol](https://img.shields.io/badge/MCP-Compatible-purple.svg)](https://modelcontextprotocol.io)
 [![SerpApi](https://img.shields.io/badge/Powered%20By-SerpApi-orange.svg)](https://serpapi.com)
-[![Tests](https://img.shields.io/badge/tests-32%20passed-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-33%20passed-brightgreen.svg)](tests/)
 
 ---
 
@@ -22,6 +26,10 @@ AI coding agents (Claude Code, Cursor, OpenCode, Codex) work off training data b
 - **Outdated patterns and security flags** (e.g. misuse of `session.verify` in Python Requests)
 
 These knowledge gaps produce silent build crashes, runtime exceptions, and wasted debugging cycles.
+
+<p align="center">
+  <img src="assets/terminal_comparison.svg" alt="Side-by-side terminal comparison: Without Preflight (build crash) vs With Preflight (clean execution)" width="100%">
+</p>
 
 ---
 
@@ -90,7 +98,7 @@ Preflight is designed with two distinct, fully transparent operating modes:
 ```bash
 git clone https://github.com/mustafasidd05-collab/preflight
 cd preflight
-pip install -e .[dev]
+pip install -e ".[dev]"
 ```
 
 ### 2. Configure Your SerpApi Key

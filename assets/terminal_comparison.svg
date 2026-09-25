@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" width="100%" height="auto">
+  <defs>
+    <pattern id="term-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#141C2E" stroke-width="0.6"/>
+    </pattern>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect width="1200" height="520" rx="8" fill="#070A10" stroke="#1E293B" stroke-width="1.5"/>
+  <rect width="1200" height="520" rx="8" fill="url(#term-grid)" opacity="0.6"/>
+
+  <!-- ==================== LEFT WINDOW: WITHOUT PREFLIGHT ==================== -->
+  <g transform="translate(35, 30)">
+    <!-- Terminal Outer Frame -->
+    <rect width="550" height="460" rx="6" fill="#0C1019" stroke="#334155" stroke-width="1"/>
+    
+    <!-- Titlebar Header -->
+    <path d="M 0 6 C 0 2.68 2.68 0 6 0 L 544 0 C 547.32 0 550 2.68 550 6 L 550 36 L 0 36 Z" fill="#172033"/>
+    <line x1="0" y1="36" x2="550" y2="36" stroke="#334155" stroke-width="1"/>
+    
+    <!-- macOS Traffic Light Dots -->
+    <circle cx="18" cy="18" r="5" fill="#EF4444"/>
+    <circle cx="34" cy="18" r="5" fill="#F59E0B"/>
+    <circle cx="50" cy="18" r="5" fill="#10B981"/>
+    
+    <!-- Window Title -->
+    <text x="70" y="22" fill="#94A3B8" font-family="ui-monospace, 'SF Mono', monospace" font-size="11.5" font-weight="600">agent_session.py &mdash; Without Preflight</text>
+    
+    <!-- Status Badge: CRASH -->
+    <rect x="430" y="8" width="106" height="20" rx="3" fill="#450A0A" stroke="#DC2626" stroke-width="1"/>
+    <text x="483" y="22" fill="#FCA5A5" font-family="ui-monospace, 'SF Mono', monospace" font-size="10.5" font-weight="700" text-anchor="middle">&times; BUILD CRASH</text>
+    
+    <!-- Terminal Body Text -->
+    <g transform="translate(18, 56)" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="11.5" xml:space="preserve">
+      <!-- Comment -->
+      <text x="0" y="16" fill="#64748B"># Agent writes code using stale training cutoff:</text>
+      
+      <!-- Deprecated Code -->
+      <text x="0" y="40" fill="#F43F5E" font-weight="600">from pydantic import BaseSettings</text>
+      <text x="0" y="60" fill="#E2E8F0">class AppConfig(BaseSettings):</text>
+      <text x="0" y="78" fill="#CBD5E1">    database_url: str</text>
+      <text x="0" y="102" fill="#E2E8F0">config = AppConfig()</text>
+      
+      <!-- Command Execution -->
+      <line x1="0" y1="124" x2="514" y2="124" stroke="#1E293B" stroke-width="1"/>
+      <text x="0" y="146" fill="#94A3B8">$ python app.py</text>
+      
+      <!-- Verbatim Crash Output -->
+      <rect x="0" y="160" width="514" height="210" rx="4" fill="#180B0F" stroke="#7F1D1D" stroke-width="1"/>
+      <g transform="translate(12, 18)">
+        <text x="0" y="14" fill="#F87171" font-weight="700">Traceback (most recent call last):</text>
+        <text x="0" y="34" fill="#FCA5A5">  File "app.py", line 1, in &lt;module&gt;</text>
+        <text x="0" y="54" fill="#F87171">    from pydantic import BaseSettings</text>
+        <text x="0" y="80" fill="#EF4444" font-weight="700">ImportError: cannot import name 'BaseSettings'</text>
+        <text x="0" y="100" fill="#EF4444" font-weight="700">from 'pydantic'</text>
+        <text x="0" y="130" fill="#94A3B8">Cause: BaseSettings was moved to pydantic-settings</text>
+        <text x="0" y="148" fill="#94A3B8">in Pydantic v2 core overhaul.</text>
+        <text x="0" y="176" fill="#F87171" font-weight="700">[Process exited with code 1]</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== RIGHT WINDOW: WITH PREFLIGHT ==================== -->
+  <g transform="translate(615, 30)">
+    <!-- Terminal Outer Frame -->
+    <rect width="550" height="460" rx="6" fill="#0C1019" stroke="#059669" stroke-width="1.2"/>
+    
+    <!-- Titlebar Header -->
+    <path d="M 0 6 C 0 2.68 2.68 0 6 0 L 544 0 C 547.32 0 550 2.68 550 6 L 550 36 L 0 36 Z" fill="#0D281E"/>
+    <line x1="0" y1="36" x2="550" y2="36" stroke="#059669" stroke-width="1"/>
+    
+    <!-- macOS Traffic Light Dots -->
+    <circle cx="18" cy="18" r="5" fill="#EF4444"/>
+    <circle cx="34" cy="18" r="5" fill="#F59E0B"/>
+    <circle cx="50" cy="18" r="5" fill="#10B981"/>
+    
+    <!-- Window Title -->
+    <text x="70" y="22" fill="#A7F3D0" font-family="ui-monospace, 'SF Mono', monospace" font-size="11.5" font-weight="600">agent_session.py &mdash; Preflight Intercept</text>
+    
+    <!-- Status Badge: VERIFIED -->
+    <rect x="390" y="8" width="146" height="20" rx="3" fill="#064E3B" stroke="#10B981" stroke-width="1"/>
+    <text x="463" y="22" fill="#6EE7B7" font-family="ui-monospace, 'SF Mono', monospace" font-size="10.5" font-weight="700" text-anchor="middle">&#x2713; CLEAN EXECUTION</text>
+    
+    <!-- Terminal Body Text -->
+    <g transform="translate(18, 56)" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="11.5" xml:space="preserve">
+      <!-- Verbatim Intercept Box -->
+      <rect x="0" y="0" width="514" height="130" rx="4" fill="#0A1E17" stroke="#047857" stroke-width="1"/>
+      <g transform="translate(10, 16)">
+        <text x="0" y="10" fill="#34D399" font-weight="700">INFO:preflight: [INTERCEPT] 'In Pydantic v2, BaseSettings...'</text>
+        <text x="0" y="28" fill="#6EE7B7">INFO:search_client: 3 vectors &rarr; SerpApi Google Search</text>
+        <text x="0" y="46" fill="#FBBF24" font-weight="700">VERDICT: OUTDATED (98% confidence) &bull; Verified in 3ms</text>
+        <text x="0" y="64" fill="#94A3B8">Canonical: https://pypi.org/project/pydantic-settings/</text>
+        <text x="0" y="82" fill="#38BDF8">Correction: from pydantic_settings import BaseSettings</text>
+      </g>
+      
+      <!-- Command Execution & Corrected Code -->
+      <line x1="0" y1="144" x2="514" y2="144" stroke="#1E293B" stroke-width="1"/>
+      <text x="0" y="164" fill="#64748B"># Agent automatically applies grounded correction:</text>
+      <text x="0" y="186" fill="#34D399" font-weight="600">from pydantic_settings import BaseSettings  # Fixed</text>
+      <text x="0" y="206" fill="#E2E8F0">class AppConfig(BaseSettings):</text>
+      <text x="0" y="224" fill="#CBD5E1">    database_url: str</text>
+      <text x="0" y="248" fill="#E2E8F0">config = AppConfig()</text>
+      
+      <!-- Execution Result -->
+      <line x1="0" y1="268" x2="514" y2="268" stroke="#1E293B" stroke-width="1"/>
+      <text x="0" y="290" fill="#94A3B8">$ python app.py</text>
+      
+      <rect x="0" y="304" width="514" height="66" rx="4" fill="#042F2E" stroke="#0D9488" stroke-width="1"/>
+      <g transform="translate(12, 18)">
+        <text x="0" y="12" fill="#5EEAD4" font-weight="600">AppConfig loaded successfully: database_url='...'</text>
+        <text x="0" y="32" fill="#34D399" font-weight="700">&#x2713; [Process finished with exit code 0 (verified in 3ms)]</text>
+      </g>
+    </g>
+  </g>
+</svg>

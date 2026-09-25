@@ -36,6 +36,7 @@ venv.bak/
 
 # Preflight local caches and secrets
 .env
+.env.local
 .preflight_cache/
 .fact_dock_cache/
 *.log
@@ -43,6 +44,7 @@ venv.bak/
 # IDE files
 .vscode/
 .idea/
+.cursor/
 *.swp
 *.swo
 
@@ -50,3 +52,17 @@ venv.bak/
 .pytest_cache/
 .coverage
 htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Agent directives & internal development artifacts (not for publishing)
+AGENTS.md
+claude-rules/
+preflight_implementation_plan.md
+*implementation_plan*.md
+scratch/

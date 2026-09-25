@@ -46,6 +46,11 @@ dev = [
     "pytest-asyncio>=0.21.0"
 ]
 
+[project.urls]
+Homepage = "https://github.com/mustafasidd05-collab/preflight"
+Repository = "https://github.com/mustafasidd05-collab/preflight"
+Issues = "https://github.com/mustafasidd05-collab/preflight/issues"
+
 [project.scripts]
 preflight = "preflight.cli:main"
 
