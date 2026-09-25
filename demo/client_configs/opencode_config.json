@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "preflight": {
+      "command": "python",
+      "args": ["-m", "preflight.cli", "serve"]
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "preflight": {
+      "command": "python",
+      "args": ["-m", "preflight.cli", "serve"],
+      "env": {
+        "SERPAPI_API_KEY": "YOUR_SERPAPI_API_KEY"
+      }
+    }
+  }
+}
