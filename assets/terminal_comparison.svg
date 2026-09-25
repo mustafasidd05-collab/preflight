@@ -1,114 +1,93 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" width="100%" height="auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" width="100%" height="auto" role="img" aria-label="Terminal comparison: without Preflight the agent's code crashes with an ImportError; with Preflight the claim is verified live and the agent self-corrects" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTowM2E5NWYyZC1iMTg2LTRjMjMtYWU1YS04YzU1MzNjNGE0MjUAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaOm6BemDTXXlI/O+NtYvdx8AAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDozZjAxM2E3Ny04NDU5LTQ4OGYtYTM0Ni0zOGFhZTc2YjVkMDhscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNojWyIp4LxvY0Ee9O1YhNvrAAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggKVUgDUlcv6HcN23kE2u2TQHq4WW6ucOlXYuUpyWHLwekZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaH+Ce88khvREErwFFuJRlKUAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRMAAAAAAAAAAAAAAAAZGhhc2hYICNw/ZocQu0biiOynS9KTCz6uBShExxKH3Ou6noqCzCIZG5hbWVuanVtYmYgbWFuaWZlc3RqZXhjbHVzaW9uc4GiZXN0YXJ0GQFMZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjAzYTk1ZjJkLWIxODYtNGMyMy1hZTVhLThjNTUzM2M0YTQyNS9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjlmYjliYTY2LTQ1MzItNDIzYS04YTJlLTYxZjc3MDY2NjQyNXJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCApVSANSVy/odw3beQTa7ZNAerhZbq5w6Vdi5SnJYcvB6JjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggC1vHsPmGtSxYGnfG/WI18AHH1KXhmMj6Lg1SUQ6UQ7GiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggJ/EqucwOo8K5OP2G2eJAjdH5nMATxIXwsdu/1884bWt0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQNlyBVVAD5ySbXDzHdjvmvi36e5xuSwmwHX0/1BfriRbgcI+qpThT0jJxkuNVxR9Hno+qDBOa+LSYzHCE7BuYnA=</c2pa:manifest></metadata>
   <defs>
     <pattern id="term-grid" width="20" height="20" patternUnits="userSpaceOnUse">
-      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#141C2E" stroke-width="0.6"/>
+      <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#111827" stroke-width="0.5"/>
     </pattern>
   </defs>
 
-  <!-- Canvas Background -->
-  <rect width="1200" height="520" rx="8" fill="#070A10" stroke="#1E293B" stroke-width="1.5"/>
-  <rect width="1200" height="520" rx="8" fill="url(#term-grid)" opacity="0.6"/>
+  <rect width="1200" height="520" rx="10" fill="#070A10" stroke="#263449" stroke-width="1.5"/>
+  <rect width="1200" height="520" rx="10" fill="url(#term-grid)" opacity="0.5"/>
 
   <!-- ==================== LEFT WINDOW: WITHOUT PREFLIGHT ==================== -->
   <g transform="translate(35, 30)">
-    <!-- Terminal Outer Frame -->
-    <rect width="550" height="460" rx="6" fill="#0C1019" stroke="#334155" stroke-width="1"/>
-    
-    <!-- Titlebar Header -->
-    <path d="M 0 6 C 0 2.68 2.68 0 6 0 L 544 0 C 547.32 0 550 2.68 550 6 L 550 36 L 0 36 Z" fill="#172033"/>
+    <rect width="550" height="460" rx="7" fill="#0C1019" stroke="#334155" stroke-width="1"/>
+
+    <path d="M 0 7 C 0 3.13 3.13 0 7 0 L 543 0 C 546.87 0 550 3.13 550 7 L 550 36 L 0 36 Z" fill="#161F2E"/>
     <line x1="0" y1="36" x2="550" y2="36" stroke="#334155" stroke-width="1"/>
-    
-    <!-- macOS Traffic Light Dots -->
+
     <circle cx="18" cy="18" r="5" fill="#EF4444"/>
-    <circle cx="34" cy="18" r="5" fill="#F59E0B"/>
+    <circle cx="34" cy="18" r="5" fill="#F5A623"/>
     <circle cx="50" cy="18" r="5" fill="#10B981"/>
-    
-    <!-- Window Title -->
-    <text x="70" y="22" fill="#94A3B8" font-family="ui-monospace, 'SF Mono', monospace" font-size="11.5" font-weight="600">agent_session.py &#8212; Without Preflight</text>
-    
-    <!-- Status Badge: CRASH -->
-    <rect x="430" y="8" width="106" height="20" rx="3" fill="#450A0A" stroke="#DC2626" stroke-width="1"/>
-    <text x="483" y="22" fill="#FCA5A5" font-family="ui-monospace, 'SF Mono', monospace" font-size="10.5" font-weight="700" text-anchor="middle">&#215; BUILD CRASH</text>
-    
-    <!-- Terminal Body Text -->
-    <g transform="translate(18, 56)" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="11.5" xml:space="preserve">
-      <!-- Comment -->
-      <text x="0" y="16" fill="#64748B"># Agent writes code using stale training cutoff:</text>
-      
-      <!-- Deprecated Code -->
+
+    <text x="70" y="22" fill="#8B98AE" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="11.5" font-weight="600">agent_session.py — without Preflight</text>
+
+    <rect x="424" y="8" width="112" height="20" rx="4" fill="#3B0A0A" stroke="#DC2626" stroke-width="1"/>
+    <text x="480" y="22" fill="#FCA5A5" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="10.5" font-weight="700" text-anchor="middle">&#215; BUILD CRASH</text>
+
+    <g transform="translate(18, 56)" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="11.5">
+      <text x="0" y="16" fill="#5B6B84"># Agent writes code from a stale training cutoff:</text>
       <text x="0" y="40" fill="#F43F5E" font-weight="600">from pydantic import BaseSettings</text>
-      <text x="0" y="60" fill="#E2E8F0">class AppConfig(BaseSettings):</text>
-      <text x="0" y="78" fill="#CBD5E1">    database_url: str</text>
-      <text x="0" y="102" fill="#E2E8F0">config = AppConfig()</text>
-      
-      <!-- Command Execution -->
-      <line x1="0" y1="124" x2="514" y2="124" stroke="#1E293B" stroke-width="1"/>
-      <text x="0" y="146" fill="#94A3B8">$ python app.py</text>
-      
-      <!-- Verbatim Crash Output -->
-      <rect x="0" y="160" width="514" height="210" rx="4" fill="#180B0F" stroke="#7F1D1D" stroke-width="1"/>
-      <g transform="translate(12, 18)">
+      <text x="0" y="60" fill="#DDE4EE">class AppConfig(BaseSettings):</text>
+      <text x="0" y="78" fill="#C3CCDA">    database_url: str</text>
+      <text x="0" y="102" fill="#DDE4EE">config = AppConfig()</text>
+
+      <line x1="0" y1="124" x2="512" y2="124" stroke="#1E293B" stroke-width="1"/>
+      <text x="0" y="146" fill="#8B98AE">$ python app.py</text>
+
+      <rect x="0" y="160" width="512" height="210" rx="5" fill="#160A0D" stroke="#7F1D1D" stroke-width="1"/>
+      <g transform="translate(14, 178)">
         <text x="0" y="14" fill="#F87171" font-weight="700">Traceback (most recent call last):</text>
-        <text x="0" y="34" fill="#FCA5A5">  File "app.py", line 1, in &lt;module&gt;</text>
-        <text x="0" y="54" fill="#F87171">    from pydantic import BaseSettings</text>
-        <text x="0" y="80" fill="#EF4444" font-weight="700">ImportError: cannot import name 'BaseSettings'</text>
-        <text x="0" y="100" fill="#EF4444" font-weight="700">from 'pydantic'</text>
-        <text x="0" y="130" fill="#94A3B8">Cause: BaseSettings was moved to pydantic-settings</text>
-        <text x="0" y="148" fill="#94A3B8">in Pydantic v2 core overhaul.</text>
-        <text x="0" y="176" fill="#F87171" font-weight="700">[Process exited with code 1]</text>
+        <text x="0" y="36" fill="#FCA5A5">  File "app.py", line 1, in &lt;module&gt;</text>
+        <text x="0" y="58" fill="#F87171">    from pydantic import BaseSettings</text>
+        <text x="0" y="86" fill="#EF4444" font-weight="700">ImportError: cannot import name 'BaseSettings'</text>
+        <text x="0" y="106" fill="#EF4444" font-weight="700">from 'pydantic'</text>
+        <text x="0" y="134" fill="#8B98AE">Cause: BaseSettings moved to pydantic-settings</text>
+        <text x="0" y="152" fill="#8B98AE">in the Pydantic v2 core overhaul.</text>
+        <text x="0" y="178" fill="#F87171" font-weight="700">[Process exited with code 1]</text>
       </g>
     </g>
   </g>
 
   <!-- ==================== RIGHT WINDOW: WITH PREFLIGHT ==================== -->
   <g transform="translate(615, 30)">
-    <!-- Terminal Outer Frame -->
-    <rect width="550" height="460" rx="6" fill="#0C1019" stroke="#059669" stroke-width="1.2"/>
-    
-    <!-- Titlebar Header -->
-    <path d="M 0 6 C 0 2.68 2.68 0 6 0 L 544 0 C 547.32 0 550 2.68 550 6 L 550 36 L 0 36 Z" fill="#0D281E"/>
+    <rect width="550" height="460" rx="7" fill="#0C1019" stroke="#059669" stroke-width="1.2"/>
+
+    <path d="M 0 7 C 0 3.13 3.13 0 7 0 L 543 0 C 546.87 0 550 3.13 550 7 L 550 36 L 0 36 Z" fill="#0D251C"/>
     <line x1="0" y1="36" x2="550" y2="36" stroke="#059669" stroke-width="1"/>
-    
-    <!-- macOS Traffic Light Dots -->
+
     <circle cx="18" cy="18" r="5" fill="#EF4444"/>
-    <circle cx="34" cy="18" r="5" fill="#F59E0B"/>
+    <circle cx="34" cy="18" r="5" fill="#F5A623"/>
     <circle cx="50" cy="18" r="5" fill="#10B981"/>
-    
-    <!-- Window Title -->
-    <text x="70" y="22" fill="#A7F3D0" font-family="ui-monospace, 'SF Mono', monospace" font-size="11.5" font-weight="600">agent_session.py &#8212; Preflight Intercept</text>
-    
-    <!-- Status Badge: VERIFIED -->
-    <rect x="390" y="8" width="146" height="20" rx="3" fill="#064E3B" stroke="#10B981" stroke-width="1"/>
-    <text x="463" y="22" fill="#6EE7B7" font-family="ui-monospace, 'SF Mono', monospace" font-size="10.5" font-weight="700" text-anchor="middle">&#x2713; CLEAN EXECUTION</text>
-    
-    <!-- Terminal Body Text -->
-    <g transform="translate(18, 56)" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="11.5" xml:space="preserve">
-      <!-- Verbatim Intercept Box -->
-      <rect x="0" y="0" width="514" height="130" rx="4" fill="#0A1E17" stroke="#047857" stroke-width="1"/>
-      <g transform="translate(10, 16)">
-        <text x="0" y="10" fill="#34D399" font-weight="700">INFO:preflight: [INTERCEPT] 'In Pydantic v2, BaseSettings...'</text>
-        <text x="0" y="28" fill="#6EE7B7">INFO:search_client: 3 vectors &#8594; SerpApi Google Search</text>
-        <text x="0" y="46" fill="#FBBF24" font-weight="700">VERDICT: OUTDATED (98% confidence) &#8226; Verified in 3ms</text>
-        <text x="0" y="64" fill="#94A3B8">Canonical: https://pypi.org/project/pydantic-settings/</text>
-        <text x="0" y="82" fill="#38BDF8">Correction: from pydantic_settings import BaseSettings</text>
-      </g>
-      
-      <!-- Command Execution & Corrected Code -->
-      <line x1="0" y1="144" x2="514" y2="144" stroke="#1E293B" stroke-width="1"/>
-      <text x="0" y="164" fill="#64748B"># Agent automatically applies grounded correction:</text>
-      <text x="0" y="186" fill="#34D399" font-weight="600">from pydantic_settings import BaseSettings  # Fixed</text>
-      <text x="0" y="206" fill="#E2E8F0">class AppConfig(BaseSettings):</text>
-      <text x="0" y="224" fill="#CBD5E1">    database_url: str</text>
-      <text x="0" y="248" fill="#E2E8F0">config = AppConfig()</text>
-      
-      <!-- Execution Result -->
-      <line x1="0" y1="268" x2="514" y2="268" stroke="#1E293B" stroke-width="1"/>
-      <text x="0" y="290" fill="#94A3B8">$ python app.py</text>
-      
-      <rect x="0" y="304" width="514" height="66" rx="4" fill="#042F2E" stroke="#0D9488" stroke-width="1"/>
+
+    <text x="70" y="22" fill="#A7F3D0" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="11.5" font-weight="600">agent_session.py — Preflight intercept</text>
+
+    <rect x="384" y="8" width="152" height="20" rx="4" fill="#0A2A20" stroke="#10B981" stroke-width="1"/>
+    <text x="460" y="22" fill="#6EE7B7" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="10.5" font-weight="700" text-anchor="middle">&#x2713; CLEAN EXECUTION</text>
+
+    <g transform="translate(18, 56)" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="11.5">
+      <rect x="0" y="0" width="512" height="116" rx="5" fill="#081C15" stroke="#047857" stroke-width="1"/>
       <g transform="translate(12, 18)">
-        <text x="0" y="12" fill="#5EEAD4" font-weight="600">AppConfig loaded successfully: database_url='...'</text>
-        <text x="0" y="32" fill="#34D399" font-weight="700">&#x2713; [Process finished with exit code 0 (verified in 3ms)]</text>
+        <text x="0" y="10" fill="#34D399" font-weight="700">INFO preflight.server: verifying claim (BaseSettings)</text>
+        <text x="0" y="30" fill="#6EE7B7">INFO search_client: 3 vectors -&gt; SerpApi live search</text>
+        <text x="0" y="50" fill="#FBBF24" font-weight="700">VERDICT: OUTDATED (98% confidence) · verified in 3ms</text>
+        <text x="0" y="70" fill="#8B98AE">canonical: pypi.org/project/pydantic-settings</text>
+        <text x="0" y="90" fill="#38BDF8">fix: from pydantic_settings import BaseSettings</text>
+      </g>
+
+      <line x1="0" y1="132" x2="512" y2="132" stroke="#1E293B" stroke-width="1"/>
+      <text x="0" y="152" fill="#5B6B84"># Agent applies the grounded correction:</text>
+      <text x="0" y="174" fill="#34D399" font-weight="600">from pydantic_settings import BaseSettings  # fixed</text>
+      <text x="0" y="194" fill="#DDE4EE">class AppConfig(BaseSettings):</text>
+      <text x="0" y="212" fill="#C3CCDA">    database_url: str</text>
+      <text x="0" y="236" fill="#DDE4EE">config = AppConfig()</text>
+
+      <line x1="0" y1="256" x2="512" y2="256" stroke="#1E293B" stroke-width="1"/>
+      <text x="0" y="278" fill="#8B98AE">$ python app.py</text>
+
+      <rect x="0" y="292" width="512" height="66" rx="5" fill="#052E29" stroke="#0D9488" stroke-width="1"/>
+      <g transform="translate(14, 312)">
+        <text x="0" y="10" fill="#5EEAD4" font-weight="600">AppConfig loaded: database_url set</text>
+        <text x="0" y="32" fill="#34D399" font-weight="700">&#x2713; Process finished — exit code 0 (3ms)</text>
       </g>
     </g>
   </g>

@@ -1,58 +1,73 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="100%" height="auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="100%" height="auto" role="img" aria-label="Preflight — FastMCP verification engine for AI coding agents, powered by SerpApi" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTo2ZjY2MTY0Zi1lMTRhLTQ5MDQtYTNmMy02MzgwM2VhZTcwMDkAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaHYrPAx7Wp8dZFQyaYJJTDUAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDpjYjdiNjYzZS1mYWJlLTQ2NzItYjUyOS0wZTdjNDQwMDUyNzlscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNoxbfXV3EvYj75Mt+V42+8wAAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFgg21fEamgEOFavCit1avYlx1Y9O+yVFMEIRd1SEt447WakZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaCLc1WU45tBlc/9psboHJPYAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRMAAAAAAAAAAAAAAAAZGhhc2hYIEDaeKXZf+IwoITvxslJ2FHMSb+3DbZ4rt/wjDME2dVVZG5hbWVuanVtYmYgbWFuaWZlc3RqZXhjbHVzaW9uc4GiZXN0YXJ0GQEEZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjZmNjYxNjRmLWUxNGEtNDkwNC1hM2YzLTYzODAzZWFlNzAwOS9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjZmMWZlY2ViLTViZTctNDU3OS05MTFhLTNkNGI0YjAyZTg0N3JjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCDbV8RqaAQ4Vq8KK3Vq9iXHVj077JUUwQhF3VIS3jjtZqJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggIzd9atnO8dSjZIUsmfrX3bshF8bdrQAuNF5sTwJIVBCiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFgg6AJO60WZ897E73Knl8ZHW6dcHOIp6+0pA+Qw0Y+r3o50Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQKh9DAFS/ztw1I7fHppzLS6ToBe2qEyI3ZrbXHJt4x5vIgCaTRNTb4W2D62jqH4TZb4wExLxyHgpoGj7AhBP0gU=</c2pa:manifest></metadata>
   <defs>
-    <!-- Clean geometric micro-grid pattern for developer-infrastructure aesthetic -->
     <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
-      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#161F30" stroke-width="0.8"/>
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#161F2E" stroke-width="0.6"/>
     </pattern>
   </defs>
 
-  <!-- Background Canvas -->
-  <rect width="1200" height="300" rx="8" fill="#0B0F17" stroke="#1E293B" stroke-width="1.5"/>
-  <rect width="1200" height="300" rx="8" fill="url(#grid)" opacity="0.85"/>
+  <!-- Canvas: deep indigo-navy, not pure black -->
+  <rect width="1200" height="300" rx="10" fill="#0B1120" stroke="#263449" stroke-width="1.5"/>
+  <rect x="1.5" y="1.5" width="1197" height="297" rx="9" fill="url(#grid)" opacity="0.5"/>
 
-  <!-- Top Accent Line (SerpApi Amber Gold) -->
-  <rect x="0" y="0" width="1200" height="3" fill="#F59E0B"/>
+  <!-- Top accent hairline (SerpApi amber, functional brand tie) -->
+  <rect x="1.5" y="1.5" width="1197" height="3" rx="1.5" fill="#F5A623"/>
 
-  <!-- Brand Lockup -->
-  <!-- Status Indicator: Live MCP Guardrail -->
-  <g transform="translate(60, 48)">
-    <circle cx="6" cy="6" r="4.5" fill="#10B981"/>
-    <text x="18" y="10" fill="#94A3B8" font-family="ui-monospace, 'SF Mono', 'Segoe UI Mono', monospace" font-size="12" font-weight="600" letter-spacing="0.08em">MODEL CONTEXT PROTOCOL &#8226; SERPAPI ENGINE</text>
+  <!-- ============ LEFT ZONE: brand + copy ============ -->
+  <g transform="translate(56, 46)">
+    <circle cx="6" cy="6" r="4.5" fill="#34D399"/>
+    <text x="18" y="10" fill="#8B98AE" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="11.5" font-weight="600" letter-spacing="0.06em">MODEL CONTEXT PROTOCOL · SERPAPI ENGINE</text>
   </g>
 
-  <!-- Project Name -->
-  <text x="60" y="112" fill="#F8FAFC" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="52" font-weight="800" letter-spacing="-0.03em">PREFLIGHT</text>
+  <text x="56" y="118" fill="#F3F6FA" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="54" font-weight="800" letter-spacing="-0.03em">Preflight</text>
 
-  <!-- Primary Tagline -->
-  <text x="60" y="152" fill="#E2E8F0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="600" letter-spacing="-0.01em">FastMCP Verification Engine for AI Coding Agents</text>
+  <text x="56" y="156" fill="#DCE3EC" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="19" font-weight="600" letter-spacing="-0.01em">Verifies an AI coding agent's claims before it writes the code</text>
 
-  <!-- Subtitle -->
-  <text x="60" y="184" fill="#94A3B8" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="15" font-weight="400">Grounded Real-Time API Guardrails Powered by SerpApi Live Search</text>
+  <text x="56" y="186" fill="#8B98AE" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="14.5" font-weight="400">Live SerpApi search, ranked by source trust, checked against the claim in real time</text>
 
-  <!-- Divider Line -->
-  <line x1="60" y1="216" x2="1140" y2="216" stroke="#1E293B" stroke-width="1"/>
+  <!-- CLI one-liner, grounded and real -->
+  <g transform="translate(56, 214)">
+    <rect width="470" height="34" rx="5" fill="#0F1626" stroke="#263449" stroke-width="1"/>
+    <text x="14" y="22" fill="#6EE7B7" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="12.5">$ preflight init --client claude-code</text>
+  </g>
 
-  <!-- Static Verified Badges (All facts verified & true) -->
-  <g transform="translate(60, 236)">
-    <!-- Badge 1: Python 3.10+ -->
-    <rect x="0" y="0" width="120" height="28" rx="4" fill="#064E3B" stroke="#059669" stroke-width="1"/>
-    <text x="60" y="18" fill="#A7F3D0" font-family="ui-monospace, 'SF Mono', monospace" font-size="12" font-weight="600" text-anchor="middle">Python 3.10+</text>
+  <!-- ============ DIVIDER: ticket perforation ============ -->
+  <g>
+    <circle cx="716" cy="0" r="10" fill="#070A10"/>
+    <circle cx="716" cy="300" r="10" fill="#070A10"/>
+    <line x1="716" y1="20" x2="716" y2="280" stroke="#263449" stroke-width="1.5" stroke-dasharray="5 6"/>
+  </g>
 
-    <!-- Badge 2: FastMCP stdio -->
-    <rect x="132" y="0" width="135" height="28" rx="4" fill="#3B0764" stroke="#7C3AED" stroke-width="1"/>
-    <text x="199" y="18" fill="#DDD6FE" font-family="ui-monospace, 'SF Mono', monospace" font-size="12" font-weight="600" text-anchor="middle">FastMCP stdio</text>
+  <!-- ============ RIGHT ZONE: pre-flight checklist stub ============ -->
+  <g transform="translate(752, 44)">
+    <text x="0" y="0" fill="#8B98AE" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="11.5" font-weight="600" letter-spacing="0.08em">PRE-FLIGHT CHECKLIST</text>
 
-    <!-- Badge 3: 33/33 Tests Passing (Static verified count) -->
-    <rect x="279" y="0" width="168" height="28" rx="4" fill="#064E3B" stroke="#059669" stroke-width="1"/>
-    <text x="363" y="18" fill="#A7F3D0" font-family="ui-monospace, 'SF Mono', monospace" font-size="12" font-weight="600" text-anchor="middle">&#x2713; 33/33 Tests Passing</text>
+    <g transform="translate(0, 26)" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="14.5">
+      <!-- item 1 -->
+      <circle cx="7" cy="4" r="7" fill="#0F291F" stroke="#34D399" stroke-width="1.2"/>
+      <path d="M 3.5 4 L 6 6.5 L 10.5 1.5" fill="none" stroke="#34D399" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="24" y="8" fill="#E2E8F0">Python 3.10+</text>
 
-    <!-- Badge 4: MIT License -->
-    <rect x="459" y="0" width="110" height="28" rx="4" fill="#082F49" stroke="#0284C7" stroke-width="1"/>
-    <text x="514" y="18" fill="#BAE6FD" font-family="ui-monospace, 'SF Mono', monospace" font-size="12" font-weight="600" text-anchor="middle">MIT License</text>
+      <!-- item 2 -->
+      <circle cx="7" cy="40" r="7" fill="#0F291F" stroke="#34D399" stroke-width="1.2"/>
+      <path d="M 3.5 40 L 6 42.5 L 10.5 37.5" fill="none" stroke="#34D399" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="24" y="44" fill="#E2E8F0">FastMCP · stdio transport</text>
 
-    <!-- Badge 5: Powered by SerpApi -->
-    <rect x="581" y="0" width="164" height="28" rx="4" fill="#451A03" stroke="#D97706" stroke-width="1"/>
-    <circle cx="597" cy="14" r="4" fill="#F59E0B"/>
-    <text x="674" y="18" fill="#FDE68A" font-family="ui-monospace, 'SF Mono', monospace" font-size="12" font-weight="600" text-anchor="middle">Powered by SerpApi</text>
+      <!-- item 3 -->
+      <circle cx="7" cy="76" r="7" fill="#0F291F" stroke="#34D399" stroke-width="1.2"/>
+      <path d="M 3.5 76 L 6 78.5 L 10.5 73.5" fill="none" stroke="#34D399" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="24" y="80" fill="#E2E8F0">33 / 33 tests passing</text>
+
+      <!-- item 4 -->
+      <circle cx="7" cy="112" r="7" fill="#0F291F" stroke="#34D399" stroke-width="1.2"/>
+      <path d="M 3.5 112 L 6 114.5 L 10.5 109.5" fill="none" stroke="#34D399" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="24" y="116" fill="#E2E8F0">MIT licensed</text>
+    </g>
+
+    <!-- footer stamp -->
+    <g transform="translate(0, 196)">
+      <line x1="0" y1="0" x2="412" y2="0" stroke="#263449" stroke-width="1"/>
+      <circle cx="7" cy="20" r="4" fill="#F5A623"/>
+      <text x="20" y="24" fill="#B9C2D0" font-family="ui-monospace, 'SF Mono', 'Cascadia Code', monospace" font-size="12" font-weight="600">Powered by SerpApi live search</text>
+    </g>
   </g>
 </svg>
