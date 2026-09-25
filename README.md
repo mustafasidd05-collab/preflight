@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="assets/hero_banner.svg" alt="Preflight — FastMCP Verification Engine for AI Coding Agents" width="100%">
-</p>
+![Preflight — FastMCP Verification Engine for AI Coding Agents](./assets/hero_banner.svg)
 
 # Preflight
 
@@ -27,9 +25,7 @@ AI coding agents (Claude Code, Cursor, OpenCode, Codex) work off training data b
 
 These knowledge gaps produce silent build crashes, runtime exceptions, and wasted debugging cycles.
 
-<p align="center">
-  <img src="assets/terminal_comparison.svg" alt="Side-by-side terminal comparison: Without Preflight (build crash) vs With Preflight (clean execution)" width="100%">
-</p>
+![Preflight Side-by-side terminal comparison: Without Preflight vs With Preflight](./assets/terminal_comparison.svg)
 
 ---
 
