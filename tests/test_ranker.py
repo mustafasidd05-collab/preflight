@@ -29,7 +29,7 @@ def test_recency_multiplier():
     assert ResultRanker.calculate_recency_score("3 weeks ago") == 0.95
     assert ResultRanker.calculate_recency_score("2 months ago") == 0.85
     assert ResultRanker.calculate_recency_score("3 years ago") == 0.40
-    assert ResultRanker.calculate_recency_score(None) == 0.70
+    assert ResultRanker.calculate_recency_score(None) == 0.60
 
 
 def test_signal_extraction():

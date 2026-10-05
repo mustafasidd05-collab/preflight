@@ -61,7 +61,7 @@ config = Settings()'''
     console.print("[dim red][!] Warning: If executed on Pydantic v2, this raises ImportError: cannot import name 'BaseSettings' from 'pydantic'[/dim red]\n")
     time.sleep(0.5)
 
-    # Step 3: Fact Dock Pre-flight Verification Interception
+    # Step 3: Preflight Verification Interception
     claim = "In Pydantic v2, BaseSettings is imported directly from pydantic"
     console.print(f"[bold yellow][Step 3] Preflight Interception (Calling verify_claim MCP Tool):[/bold yellow]")
     console.print(f"  [dim]Evaluating claim:[/dim] [cyan]{claim}[/cyan]")

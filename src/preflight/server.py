@@ -6,21 +6,25 @@ Exposes verify_claim and quick_check tools, prompts, and resources.
 import os
 import json
 import time
+import asyncio
 import logging
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
+import httpx
 from fastmcp import FastMCP
 
 from preflight import __version__
 from preflight.models import PreflightVerdict, QuickCheckResponse, Ecosystem
 from preflight.query_engine import QueryEngine
-from preflight.search_client import SerpApiSearchClient
+from preflight.search_client import SerpApiSearchClient, redact_sensitive
 from preflight.ranker import ResultRanker
 from preflight.synthesizer import VerdictSynthesizer
-from preflight.trusted_domains import TIER_1_DOMAINS, TIER_2_DOMAINS
+from preflight.trusted_domains import TIER_1_EXACT_HOSTS, TIER_2_EXACT_HOSTS
 
 # Configure logging
-logging.basicConfig(level=os.getenv("PREFLIGHT_LOG_LEVEL", os.getenv("FACT_DOCK_LOG_LEVEL", "INFO")))
+logging.basicConfig(level=os.getenv("PREFLIGHT_LOG_LEVEL", "INFO"))
 logger = logging.getLogger("preflight.server")
+
+SEARCH_DEADLINE_S = 10.0
 
 # Initialize FastMCP Server
 mcp = FastMCP(
@@ -34,6 +38,45 @@ mcp = FastMCP(
         "(CONFIRMED, OUTDATED, CONFLICTING, or UNVERIFIABLE) along with the exact modern correction and canonical link."
     ),
 )
+
+
+async def gather_search_vectors(
+    client: SerpApiSearchClient,
+    queries: List[str],
+    replay: bool = False,
+    deadline: float = SEARCH_DEADLINE_S,
+) -> List[Dict[str, Any]]:
+    """Run all search vectors concurrently over one connection pool with deadline."""
+    if not queries:
+        return []
+
+    async with httpx.AsyncClient(timeout=httpx.Timeout(deadline)) as http_client:
+        tasks = [
+            asyncio.create_task(client.search(q, num_results=5, force_replay=replay, client=http_client))
+            for q in queries
+        ]
+        done, pending = await asyncio.wait(tasks, timeout=deadline)
+
+        for t in pending:
+            t.cancel()
+        if pending:
+            await asyncio.gather(*pending, return_exceptions=True)
+
+        results: List[Dict[str, Any]] = []
+        errors: List[str] = []
+        for t in done:
+            if t.cancelled():
+                errors.append(f"vector timed out after {deadline}s")
+                continue
+            exc = t.exception()
+            if exc is not None:
+                errors.append(redact_sensitive(f"{type(exc).__name__}: {exc}"))
+            else:
+                results.append(t.result())
+
+        for msg in errors:
+            logger.warning("search vector failed: %s", msg)
+        return results
 
 
 @mcp.tool(
@@ -59,8 +102,14 @@ async def verify_claim(
         ecosystem: Optional ecosystem hint (python, javascript, typescript, rust, go)
         target_package: Optional library/package name hint
         replay: If True, uses cached real SerpApi responses (ideal for testing without API keys)
-        serpapi_key: Optional explicit SerpApi API key override
+        serpapi_key: (Deprecated) Optional explicit SerpApi API key override
     """
+    if serpapi_key:
+        logger.warning(
+            "Passing 'serpapi_key' to verify_claim is deprecated for security; "
+            "set SERPAPI_API_KEY in the environment instead."
+        )
+
     start_time = time.perf_counter_ns()
     logger.info(f"Preflight: Verifying claim: '{claim}' (mode={'REPLAY' if replay else 'LIVE'})")
 
@@ -73,27 +122,22 @@ async def verify_claim(
     )
 
     client = SerpApiSearchClient(api_key=serpapi_key)
-    raw_responses = []
-    queries_run = []
-    is_any_replayed = False
-    unverifiable_due_to_key = False
-    fixture_missing = False
-    api_error: Optional[str] = None
 
-    # 2. Search SerpApi for formulated query vectors (run top 2-3 vectors)
+    # 2. Search SerpApi for formulated query vectors concurrently
     search_vectors = analysis.search_queries[:3] if len(analysis.search_queries) >= 3 else analysis.search_queries
-    for q in search_vectors:
-        queries_run.append(q)
-        resp = await client.search(q, num_results=5, force_replay=replay)
-        raw_responses.append(resp)
-        if resp.get("_is_replayed"):
-            is_any_replayed = True
-        if resp.get("_unverifiable_due_to_missing_key"):
-            unverifiable_due_to_key = True
-        if resp.get("_fixture_missing"):
-            fixture_missing = True
-        if resp.get("_api_error"):
-            api_error = resp.get("_api_error")
+    queries_run = list(search_vectors)
+
+    raw_responses = await gather_search_vectors(
+        client=client,
+        queries=search_vectors,
+        replay=replay,
+        deadline=SEARCH_DEADLINE_S,
+    )
+
+    is_any_replayed = any(r.get("_is_replayed") for r in raw_responses)
+    unverifiable_due_to_key = any(r.get("_unverifiable_due_to_missing_key") for r in raw_responses)
+    fixture_missing = any(r.get("_fixture_missing") for r in raw_responses)
+    api_error = next((r.get("_api_error") for r in raw_responses if r.get("_api_error")), None)
 
     # 3. Rank results by domain authority and recency
     evidence_items = ResultRanker.rank_results(raw_responses)
@@ -128,6 +172,12 @@ async def quick_check(
     serpapi_key: Optional[str] = None,
 ) -> str:
     """Check a specific package symbol status."""
+    if serpapi_key:
+        logger.warning(
+            "Passing 'serpapi_key' to quick_check is deprecated for security; "
+            "set SERPAPI_API_KEY in the environment instead."
+        )
+
     claim = f"In {package} {f'v{version}' if version else ''}, `{symbol}` usage and availability"
     verdict_json = await verify_claim(
         claim=claim,
@@ -177,9 +227,9 @@ def get_status() -> str:
 def get_trusted_domains() -> str:
     """Resource exposing the developer domain trust hierarchy."""
     hierarchy = {
-        "tier_1_authoritative_registries_and_docs": sorted(list(TIER_1_DOMAINS)),
-        "tier_2_community_and_discussion": sorted(list(TIER_2_DOMAINS)),
-        "description": "Tier 1 domains carry full 1.0 trust weighting. Tier 2 carries 0.70-0.75.",
+        "tier_1_authoritative_registries_and_docs": sorted(list(TIER_1_EXACT_HOSTS)),
+        "tier_2_community_and_discussion": sorted(list(TIER_2_EXACT_HOSTS)),
+        "description": "Tier 1 domains carry full 1.0 trust weighting. Tier 2 carries 0.75.",
     }
     return json.dumps(hierarchy, indent=2)
 

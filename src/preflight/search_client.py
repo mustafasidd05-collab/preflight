@@ -3,6 +3,7 @@ SerpApi search client with caching, explicit live execution, and honest verbatim
 """
 
 import os
+import re
 import json
 import time
 import hashlib
@@ -14,9 +15,50 @@ from dotenv import load_dotenv
 
 load_dotenv()
 logger = logging.getLogger("preflight.search_client")
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("httpcore").setLevel(logging.WARNING)
 
-CACHE_DIR = Path(os.getenv("PREFLIGHT_CACHE_DIR", os.getenv("FACT_DOCK_CACHE_DIR", ".preflight_cache")))
+CACHE_DIR = Path(os.getenv("PREFLIGHT_CACHE_DIR", ".preflight_cache"))
 FIXTURES_DIR = Path(__file__).parent / "fixtures"
+
+_REDACT_RE = re.compile(r"(api_key['\"]?\s*[:=]\s*['\"]?)[^&'\"\s]+", re.IGNORECASE)
+CACHE_TTL_SECONDS = 7 * 86400
+
+
+def redact_sensitive(text: str) -> str:
+    """Route every log line, error string, and exception repr through this."""
+    return _REDACT_RE.sub(r"\1[REDACTED]", text or "")
+
+
+def cache_key(query: str) -> str:
+    """FIPS-safe MD5 query hash."""
+    return hashlib.md5(query.strip().lower().encode("utf-8"), usedforsecurity=False).hexdigest()
+
+
+def cache_is_fresh(path: Path) -> bool:
+    """Returns True if the cached file is within the 7-day TTL window."""
+    try:
+        return (time.time() - path.stat().st_mtime) <= CACHE_TTL_SECONDS
+    except OSError:
+        return False
+
+
+def prune_expired_cache(cache_dir: Path) -> int:
+    """Delete only entries older than the TTL window."""
+    removed = 0
+    now = time.time()
+    try:
+        entries = list(cache_dir.glob("*.json"))
+    except OSError:
+        return 0
+    for p in entries:
+        try:
+            if now - p.stat().st_mtime > CACHE_TTL_SECONDS:
+                p.unlink()
+                removed += 1
+        except OSError:
+            continue
+    return removed
 
 
 class SerpApiSearchClient:
@@ -34,32 +76,38 @@ class SerpApiSearchClient:
         if self.cache_enabled:
             self.cache_dir.mkdir(parents=True, exist_ok=True)
 
-    def _query_hash(self, query: str) -> str:
-        return hashlib.md5(query.strip().lower().encode("utf-8")).hexdigest()
+    _query_hash = staticmethod(cache_key)
 
     def _get_cached(self, query: str) -> Optional[Dict[str, Any]]:
         if not self.cache_enabled:
             return None
-        cache_file = self.cache_dir / f"{self._query_hash(query)}.json"
+        cache_file = self.cache_dir / f"{cache_key(query)}.json"
         if cache_file.exists():
+            if not cache_is_fresh(cache_file):
+                try:
+                    cache_file.unlink()
+                except OSError:
+                    pass
+                return None
             try:
                 with open(cache_file, "r", encoding="utf-8") as f:
                     data = json.load(f)
                     data["_from_cache"] = True
                     return data
             except Exception as e:
-                logger.warning(f"Error reading cache for '{query}': {e}")
+                logger.warning(redact_sensitive(f"Error reading cache for '{query}': {e}"))
         return None
 
     def _set_cached(self, query: str, data: Dict[str, Any]) -> None:
         if not self.cache_enabled:
             return
-        cache_file = self.cache_dir / f"{self._query_hash(query)}.json"
+        cache_file = self.cache_dir / f"{cache_key(query)}.json"
         try:
             with open(cache_file, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2)
+            prune_expired_cache(self.cache_dir)
         except Exception as e:
-            logger.warning(f"Error writing cache for '{query}': {e}")
+            logger.warning(redact_sensitive(f"Error writing cache for '{query}': {e}"))
 
     FIXTURE_TOPIC_RULES = {
         "pydantic_v2_replay.json": ["pydantic", "basesettings"],
@@ -114,21 +162,10 @@ class SerpApiSearchClient:
         num_results: int = 5,
         force_replay: bool = False,
         bypass_cache: bool = False,
+        client: Optional[httpx.AsyncClient] = None,
     ) -> Dict[str, Any]:
         """
         Execute search for a query with explicit live and replay separation.
-
-        1. When force_replay=True:
-           Searches pre-recorded real SerpApi responses in fixtures/.
-           If no fixture exists, returns explicit _fixture_missing error.
-           (Never invents data or makes unauthorized live calls).
-
-        2. When force_replay=False (Live Mode):
-           Requires SERPAPI_API_KEY.
-           If key is missing, returns explicit _unverifiable_due_to_missing_key error.
-           (NEVER silently falls back to replay fixtures).
-           When key is present, makes live HTTP request to https://serpapi.com/search,
-           logs outbound request, and records true network round-trip time.
         """
         # ==========================================
         # PATH A: EXPLICIT REPLAY MODE
@@ -154,7 +191,6 @@ class SerpApiSearchClient:
         # ==========================================
         # PATH B: LIVE SERPAPI MODE
         # ==========================================
-        # Strictly require API key in live mode - NO SILENT FALLBACK
         if not self.api_key:
             logger.warning(f"Live search requested for query '{query}', but SERPAPI_API_KEY is unset.")
             return {
@@ -188,36 +224,42 @@ class SerpApiSearchClient:
         logger.info(f"🌐 [LIVE SERPAPI] Outbound HTTP GET: https://serpapi.com/search (q='{query}')")
         start_http = time.perf_counter()
 
-        try:
-            async with httpx.AsyncClient(timeout=15.0) as client:
-                resp = await client.get("https://serpapi.com/search", params=params)
-                http_duration_ms = (time.perf_counter() - start_http) * 1000
+        async def _execute_get(http_client: httpx.AsyncClient):
+            resp = await http_client.get("https://serpapi.com/search", params=params)
+            http_duration_ms = (time.perf_counter() - start_http) * 1000
 
-                if resp.status_code == 200:
-                    data = resp.json()
-                    data["_is_replayed"] = False
-                    data["_http_duration_ms"] = round(http_duration_ms, 1)
-                    logger.info(f"🌐 [LIVE SERPAPI] Received HTTP 200 OK in {http_duration_ms:.1f}ms")
-                    self._set_cached(query, data)
-                    return data
-                elif resp.status_code in (401, 403):
-                    err_msg = f"SerpApi Authentication Error (HTTP {resp.status_code}): Invalid or expired API key"
-                    logger.error(f"❌ [LIVE SERPAPI] {err_msg}")
-                    return {
-                        "search_metadata": {"status": "Auth Error", "error": err_msg},
-                        "organic_results": [],
-                        "_is_replayed": False,
-                        "_api_error": err_msg,
-                    }
-                else:
-                    err_msg = f"SerpApi Error (HTTP {resp.status_code}): {resp.text[:200]}"
-                    logger.error(f"❌ [LIVE SERPAPI] {err_msg}")
-                    return {
-                        "search_metadata": {"status": "API Error", "error": err_msg},
-                        "organic_results": [],
-                        "_is_replayed": False,
-                        "_api_error": err_msg,
-                    }
+            if resp.status_code == 200:
+                data = resp.json()
+                data["_is_replayed"] = False
+                data["_http_duration_ms"] = round(http_duration_ms, 1)
+                logger.info(f"🌐 [LIVE SERPAPI] Received HTTP 200 OK in {http_duration_ms:.1f}ms")
+                self._set_cached(query, data)
+                return data
+            elif resp.status_code in (401, 403):
+                err_msg = f"SerpApi Authentication Error (HTTP {resp.status_code}): Invalid or expired API key"
+                logger.error(f"❌ [LIVE SERPAPI] {err_msg}")
+                return {
+                    "search_metadata": {"status": "Auth Error", "error": err_msg},
+                    "organic_results": [],
+                    "_is_replayed": False,
+                    "_api_error": err_msg,
+                }
+            else:
+                err_msg = redact_sensitive(f"SerpApi Error (HTTP {resp.status_code}): {resp.text[:200]}")
+                logger.error(f"❌ [LIVE SERPAPI] {err_msg}")
+                return {
+                    "search_metadata": {"status": "API Error", "error": err_msg},
+                    "organic_results": [],
+                    "_is_replayed": False,
+                    "_api_error": err_msg,
+                }
+
+        try:
+            if client is not None:
+                return await _execute_get(client)
+            else:
+                async with httpx.AsyncClient(timeout=15.0) as local_client:
+                    return await _execute_get(local_client)
         except httpx.TimeoutException:
             err_msg = "SerpApi request timed out after 15 seconds"
             logger.error(f"❌ [LIVE SERPAPI] {err_msg}")
@@ -228,7 +270,7 @@ class SerpApiSearchClient:
                 "_api_error": err_msg,
             }
         except Exception as e:
-            err_msg = f"Live SerpApi call failed: {str(e)}"
+            err_msg = redact_sensitive(f"Live SerpApi call failed: {str(e)}")
             logger.error(f"❌ [LIVE SERPAPI] {err_msg}")
             return {
                 "search_metadata": {"status": "Network Error", "error": err_msg},

@@ -1,30 +1,51 @@
-"""
-Pydantic data models for Preflight.
-"""
+"""Core Pydantic schemas for the Preflight verification pipeline."""
 
 from typing import List, Literal, Optional, Dict, Any
 from pydantic import BaseModel, Field
 
-
 Ecosystem = Literal["python", "javascript", "typescript", "rust", "go", "general"]
 VerdictType = Literal["CONFIRMED", "OUTDATED", "CONFLICTING", "UNVERIFIABLE"]
+TrustTier = Literal[0, 1, 2, 3]
+
+TIER_LABELS = {
+    1: "Official/Registry",
+    2: "Curated Community",
+    3: "SEO/Tutorial Aggregator",
+    0: "Untrusted/Unknown",
+}
 
 
 class EvidenceItem(BaseModel):
-    """An individual piece of evidence extracted from a search result."""
     title: str = Field(..., description="Page title")
     url: str = Field(..., description="Source URL")
-    snippet: str = Field(..., description="Relevant text excerpt from source")
-    domain: str = Field(..., description="Extracted root domain")
-    trust_tier: int = Field(..., description="Trust tier (1=Official/Registry, 2=Community, 3=Aggregator)")
-    trust_score: float = Field(..., ge=0.0, le=1.0, description="Composite trust score (0.0 - 1.0)")
-    published_date: Optional[str] = Field(None, description="Published date string if detected in SERP")
-    detected_version: Optional[str] = Field(None, description="Software version detected in title or snippet")
-    signals: List[str] = Field(default_factory=list, description="Extracted semantic signals (e.g. deprecated, breaking, current)")
+    snippet: str = Field(
+        ...,
+        description="Sanitized excerpt wrapped in <untrusted_search_snippet> delimiters",
+    )
+    domain: str = Field(
+        ...,
+        description=(
+            "Normalized full hostname (lowercase, no scheme, no port, no userinfo, "
+            "no leading www.) — NOT the registrable root domain"
+        ),
+    )
+    trust_tier: TrustTier = Field(
+        ...,
+        description="1=Official/Registry (1.00), 2=Community (0.75), 3=Aggregator (0.30), 0=Untrusted/Unknown (0.50)",
+    )
+    trust_score: float = Field(..., ge=0.0, le=1.0, description="Composite trust score, clamped to [0, 1]")
+    published_date: Optional[str] = Field(None, description="Raw published-date string as returned by the search engine")
+    detected_version: Optional[str] = Field(None, description="Software version detected in the evidence")
+    signals: List[str] = Field(default_factory=list, description="Extracted semantic signals")
+
+
+class CorrectionVariant(BaseModel):
+    context: Literal["server_component", "client_component", "codemod", "generateMetadata", "route_handler"]
+    code: str
+    description: Optional[str] = None
 
 
 class ClaimAnalysis(BaseModel):
-    """Deconstructed elements of a raw technical assertion."""
     raw_claim: str
     inferred_ecosystem: Ecosystem
     package_name: Optional[str] = None
@@ -55,23 +76,22 @@ class ClaimAnalysis(BaseModel):
 
 
 class PreflightVerdict(BaseModel):
-    """The structured decision object returned to the calling AI agent."""
-    claim: str = Field(..., description="The original claim evaluated")
-    verdict: VerdictType = Field(..., description="Final status: CONFIRMED, OUTDATED, CONFLICTING, or UNVERIFIABLE")
-    confidence: float = Field(..., ge=0.0, le=1.0, description="Confidence score from 0.0 to 1.0")
-    summary: str = Field(..., description="Concise explanation of the verdict rationale")
-    correction: Optional[str] = Field(None, description="Actionable replacement code or accurate assertion if outdated")
-    canonical_reference: Optional[str] = Field(None, description="Most authoritative URL validating this verdict")
-    suggested_action: str = Field(..., description="Specific recommendation for the coding agent")
-    evidence_count: int = Field(..., description="Number of evaluated search evidence items")
-    top_evidence: List[EvidenceItem] = Field(default_factory=list, description="Top ranked evidence sources supporting the verdict")
-    queries_executed: List[str] = Field(default_factory=list, description="Search queries run against SerpApi")
-    is_replayed: bool = Field(False, description="True if evidence was replayed from recorded SerpApi queries (offline mode)")
-    response_time_ms: int = Field(..., description="Execution time in milliseconds")
+    claim: str
+    verdict: VerdictType
+    confidence: float = Field(..., ge=0.0, le=1.0)
+    summary: str = Field(..., description="Deterministic template output; never contains web text")
+    correction: Optional[str] = Field(None, description="Primary modern replacement code")
+    correction_variants: List[CorrectionVariant] = Field(default_factory=list)
+    canonical_reference: Optional[str] = Field(None, description="Must be https:// or it is nulled before emission")
+    suggested_action: str = Field(..., description="One of the four TEMPLATE_ACTIONS values; never free text")
+    evidence_count: int = Field(..., ge=0)
+    top_evidence: List[EvidenceItem] = Field(default_factory=list)
+    queries_executed: List[str] = Field(default_factory=list)
+    is_replayed: bool = False
+    response_time_ms: int = Field(..., ge=0)
 
 
 class VerifyClaimRequest(BaseModel):
-    """Request payload for claim verification."""
     claim: str = Field(..., description="The code, API, or library assertion to verify against live web docs")
     ecosystem: Optional[Ecosystem] = Field(None, description="Optional programming language or ecosystem hint")
     target_package: Optional[str] = Field(None, description="Optional package name hint (e.g., 'pydantic', 'next')")
@@ -79,9 +99,8 @@ class VerifyClaimRequest(BaseModel):
 
 
 class QuickCheckResponse(BaseModel):
-    """Lightweight response for fast API symbol queries."""
     package: str
     symbol: str
     status: VerdictType
     latest_reference: Optional[str] = None
-    note: str
+    note: Optional[str] = None

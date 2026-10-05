@@ -12,7 +12,7 @@
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-brightgreen.svg)](https://www.python.org/)
 [![Model Context Protocol](https://img.shields.io/badge/MCP-Compatible-purple.svg)](https://modelcontextprotocol.io)
 [![SerpApi](https://img.shields.io/badge/Powered%20By-SerpApi-orange.svg)](https://serpapi.com)
-[![Tests](https://img.shields.io/badge/tests-33%20passed-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-80+%20passing-brightgreen.svg)](tests/)
 
 ---
 
@@ -53,7 +53,8 @@ These knowledge gaps produce silent build crashes, runtime exceptions, and waste
 |   | Canonical Docs Vector | --> | site:docs.pydantic.dev  | --> | Tier 1 (1.00): Official Docs/PyPI |   |
 |   | Migration/Deprec. Vec | --> | "BaseSettings" "v2"     | --> | Tier 2 (0.75): GitHub Releases    |   |
 |   | Signature/Usage Vector| --> | breaking change signals | --> | Tier 3 (0.30): Tutorial/SEO blogs |   |
-|   +-----------------------+     +-------------------------+     +-----------------------------------+   |
+|   +-----------------------+     +-------------------------+     | Tier 0 (0.50): Untrusted Default  |   |
+|                                                                 +-----------------------------------+   |
 |                                                                                   |                     |
 |                                                                                   v                     |
 |                                    4. Multi-Source Consensus Synthesizer                                |
@@ -168,7 +169,7 @@ Run `preflight init --client <client_name>` as shown in Quickstart Step 3. The i
 - Resolves the platform-specific path (Windows, macOS, Linux).
 - Uses the verified Python environment binary to ensure dependencies load reliably.
 - Non-destructively merges `preflight` without clobbering existing MCP tools or settings.
-- Automatically cleans up legacy `fact-dock` entries.
+- Non-destructively preserves existing user configurations and legacy entries.
 - Guards against accidental overwrites (use `--force` to update).
 
 ### Manual Configuration (Fallback Reference)
@@ -252,6 +253,7 @@ claude mcp add preflight -- python -m preflight.cli serve
 | `In Python requests, session.verify controls SSL verification` | Stable (v2.32) | `CONFIRMED` | 96% | `requests.readthedocs.io` SSL Verification docs |
 | `In React 19, forwardRef is required for passing refs to children` | v19.0+ | `OUTDATED` | 90% | `react.dev` React 19 Upgrade Guide; `ref` is now a standard prop |
 | `In FoobarSDK v99, enableQuantumSpeed(True) is the main call` | v99 | `UNVERIFIABLE` | <20% | Zero authoritative documentation matches |
+
 
 ---
 

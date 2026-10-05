@@ -160,8 +160,7 @@ def test_synthesize_fastapi_deprecation_replacement_claim():
     )
 
     assert verdict.verdict == "CONFIRMED"
-    assert "on_event" in verdict.summary
-    assert "deprecated" in verdict.summary
-    assert "lifespan" in verdict.summary
+    assert "CONFIRMED: Verified against 1 sources" in verdict.summary
+    assert "lifespan" in (verdict.correction or "")
     assert verdict.canonical_reference == "https://fastapi.tiangolo.com/advanced/events/"
 

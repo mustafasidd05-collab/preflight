@@ -1,12 +1,15 @@
 """
 Curated registry of trusted developer domains and ecosystem heuristics.
+Explicit-host trust registry. Exact-host match for Tier 1; bounded subdomain
+inheritance for Tier 2/3 only. Everything else is Tier 0 (untrusted).
 """
 
 from typing import Dict, List, Set, Tuple
-from preflight.models import Ecosystem
+from urllib.parse import urlparse
 
-# Tier 1: Canonical package registries, official documentation hosts, official GitHub releases
-TIER_1_DOMAINS: Set[str] = {
+from preflight.models import Ecosystem, TrustTier
+
+TIER_1_EXACT_HOSTS: Set[str] = {
     # Package Registries
     "pypi.org",
     "npmjs.com",
@@ -16,7 +19,7 @@ TIER_1_DOMAINS: Set[str] = {
     "packagist.org",
     "nuget.org",
 
-    # Core Language & Spec Docs
+    # Language Specifications & Core Docs
     "docs.python.org",
     "developer.mozilla.org",
     "typescriptlang.org",
@@ -37,7 +40,6 @@ TIER_1_DOMAINS: Set[str] = {
     "numpy.org",
     "scipy.org",
     "pytest.org",
-
     "nextjs.org",
     "react.dev",
     "reactjs.org",
@@ -46,21 +48,14 @@ TIER_1_DOMAINS: Set[str] = {
     "svelte.dev",
     "expressjs.com",
     "tailwindcss.com",
-
     "python.langchain.com",
     "js.langchain.com",
     "platform.openai.com",
     "docs.anthropic.com",
     "ai.google.dev",
-
-    # General Documentation Platforms
-    "readthedocs.io",
-    "gitbook.io",
-    "github.io",
 }
 
-# Tier 2: High quality community sources, Q&A, source code repositories, engineering blogs
-TIER_2_DOMAINS: Set[str] = {
+TIER_2_EXACT_HOSTS: Set[str] = {
     "github.com",
     "gitlab.com",
     "stackoverflow.com",
@@ -70,8 +65,7 @@ TIER_2_DOMAINS: Set[str] = {
     "reddit.com",
 }
 
-# Tier 3 / Lower Trust: Content aggregators, SEO farms, tutorial sites (frequently unmaintained/outdated)
-TIER_3_DOMAINS: Set[str] = {
+TIER_3_EXACT_HOSTS: Set[str] = {
     "geeksforgeeks.org",
     "w3schools.com",
     "tutorialspoint.com",
@@ -80,6 +74,16 @@ TIER_3_DOMAINS: Set[str] = {
     "freecodecamp.org",
     "towardsdatascience.com",
 }
+
+# Compatibility aliases
+TIER_1_DOMAINS = TIER_1_EXACT_HOSTS
+TIER_2_DOMAINS = TIER_2_EXACT_HOSTS
+TIER_3_DOMAINS = TIER_3_EXACT_HOSTS
+
+TIER_1_SCORE = 1.00
+TIER_2_SCORE = 0.75
+TIER_3_SCORE = 0.30
+UNTRUSTED_SCORE = 0.50
 
 # Ecosystem keyword indicators
 ECOSYSTEM_SIGNALS: Dict[Ecosystem, List[str]] = {
@@ -109,45 +113,54 @@ ECOSYSTEM_SIGNALS: Dict[Ecosystem, List[str]] = {
 }
 
 
-def get_domain_tier(domain: str) -> Tuple[int, float]:
+def normalize_host(url_or_host: str) -> str:
+    """Return the normalized full hostname: lowercase, no scheme, no userinfo,
+    no port, no trailing dot, no leading 'www.'. This is the value stored in
+    EvidenceItem.domain and the value get_domain_tier() matches against."""
+    raw = (url_or_host or "").strip()
+    if not raw:
+        return ""
+    if "://" not in raw:
+        raw = "https://" + raw
+    parsed = urlparse(raw)
+    host = parsed.netloc or parsed.path.split("/")[0]
+    host = host.rsplit("@", 1)[-1]  # drop userinfo
+    host = host.split(":", 1)[0]  # drop port
+    host = host.lower().strip(".")
+    if host.startswith("www."):
+        host = host[len("www."):]
+    return host
+
+
+def _is_same_or_subdomain(host: str, base: str) -> bool:
+    """Boundary-safe subdomain test. 'notstackoverflow.com' must NOT match
+    base 'stackoverflow.com'; 'gist.github.com' must."""
+    return host == base or host.endswith("." + base)
+
+
+def get_domain_tier(domain: str) -> Tuple[TrustTier, float]:
     """
-    Returns (tier, base_trust_score) for a given domain string.
-    Tier 1 = Official/Registry (0.95 - 1.0)
-    Tier 2 = Community/Repositories (0.65 - 0.75)
-    Tier 3 = Aggregators/Tutorials (0.25 - 0.35)
-    Unknown = 0.50 default
+    Returns (tier, base_trust_score) for a given domain/URL.
+    Tier 1 is exact-host only. No prefix/suffix rules, no subdomain inheritance.
+    Tier 2 and 3 support boundary-safe subdomain inheritance.
+    Everything else is Tier 0 (untrusted).
     """
-    domain = domain.lower().strip()
-    
-    # Check exact match
-    if domain in TIER_1_DOMAINS:
-        return 1, 1.0
-    if domain in TIER_2_DOMAINS:
-        return 2, 0.75
-    if domain in TIER_3_DOMAINS:
-        return 3, 0.30
+    host = normalize_host(domain)
 
-    # Subdomain match (e.g. docs.github.com or something.readthedocs.io)
-    for t1 in TIER_1_DOMAINS:
-        if domain.endswith("." + t1) or domain == t1:
-            return 1, 0.95
+    if host in TIER_1_EXACT_HOSTS:
+        return 1, TIER_1_SCORE
 
-    for t2 in TIER_2_DOMAINS:
-        if domain.endswith("." + t2) or domain == t2:
-            return 2, 0.70
+    for base in TIER_2_EXACT_HOSTS:
+        if _is_same_or_subdomain(host, base):
+            return 2, TIER_2_SCORE
 
-    for t3 in TIER_3_DOMAINS:
-        if domain.endswith("." + t3) or domain == t3:
-            return 3, 0.30
+    for base in TIER_3_EXACT_HOSTS:
+        if _is_same_or_subdomain(host, base):
+            return 3, TIER_3_SCORE
 
-    # Special rules for documentation subdomains
-    if domain.startswith("docs.") or domain.startswith("documentation."):
-        return 1, 0.90
-    if "readthedocs" in domain or "gitbook" in domain:
-        return 1, 0.90
-
-    # Neutral default for unknown domains
-    return 2, 0.55
+    # Everything else — including unlisted *.github.io, *.readthedocs.io, *.gitbook.io
+    # is untrusted (Tier 0).
+    return 0, UNTRUSTED_SCORE
 
 
 def get_domain_weight(domain: str) -> float:

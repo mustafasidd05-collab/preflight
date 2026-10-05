@@ -8,10 +8,12 @@ import os
 import sys
 import json
 import shutil
+import logging
 from pathlib import Path
 from dataclasses import dataclass
 from typing import Dict, Any, List, Optional, Tuple
 
+logger = logging.getLogger("preflight.client_installer")
 
 SUPPORTED_CLIENTS = ["claude-code", "claude-desktop", "cursor", "opencode"]
 
@@ -35,14 +37,6 @@ class InstallResult:
 def resolve_executable_command() -> Tuple[str, List[str]]:
     """
     Resolve the most portable, robust command and arguments to launch Preflight.
-    
-    1. If `preflight` is globally on PATH, use:
-       command: "preflight", args: ["serve"]
-    2. If running within a virtualenv and `preflight.exe` (or `preflight`) exists
-       in the virtualenv scripts directory, use the absolute path:
-       command: "<venv_scripts>/preflight.exe", args: ["serve"]
-    3. Fallback: use absolute path to sys.executable with -m:
-       command: sys.executable, args: ["-m", "preflight.cli", "serve"]
     """
     # 1. Global PATH check
     global_bin = shutil.which("preflight")
@@ -97,7 +91,7 @@ def get_config_path(
             xdg = os.environ.get("XDG_CONFIG_HOME")
             base = Path(xdg) if xdg else home / ".config"
             return base / "opencode" / "opencode.json"
-        
+
         # Check if project has .opencode folder
         if (proj / ".opencode").is_dir():
             return proj / ".opencode" / "opencode.json"
@@ -117,6 +111,7 @@ def merge_config_data(
     """
     Non-destructively merge server_entry into existing configuration.
     Returns (updated_dict, action) where action is 'CREATED' or 'UPDATED'.
+    Preserves foreign keys and auto-prunes legacy prototype 'fact-dock' entries.
     """
     data = dict(existing)
 
@@ -137,9 +132,10 @@ def merge_config_data(
 
     container = data[container_key]
 
-    # Automatically clean up legacy "fact-dock" key if present
+    # Automatically clean up legacy prototype "fact-dock" key if present
     if "fact-dock" in container:
         del container["fact-dock"]
+        logger.info("Auto-pruned legacy prototype 'fact-dock' server entry.")
 
     if server_key in container:
         if not force:
@@ -152,6 +148,41 @@ def merge_config_data(
 
     container[server_key] = formatted_entry
     return data, action
+
+
+def atomic_write_json(config_path: Path, data: dict) -> None:
+    """
+    Atomically write JSON data preserving original file permissions
+    and creating a .bak backup copy if the file already exists.
+    """
+    config_path.parent.mkdir(parents=True, exist_ok=True)
+
+    exists = config_path.exists()
+    orig_mode = None
+    if exists:
+        try:
+            orig_mode = config_path.stat().st_mode
+            shutil.copy2(config_path, config_path.with_name(config_path.name + ".bak"))
+        except OSError as e:
+            logger.debug(f"Backup copy skipped or failed: {e}")
+
+    tmp = config_path.with_name(config_path.name + ".tmp")
+    with open(tmp, "w", encoding="utf-8") as fh:
+        json.dump(data, fh, indent=2)
+        fh.write("\n")
+        fh.flush()
+        try:
+            os.fsync(fh.fileno())
+        except OSError:
+            pass
+
+    if orig_mode is not None:
+        try:
+            os.chmod(tmp, orig_mode)
+        except OSError:
+            pass
+
+    os.replace(tmp, config_path)
 
 
 def install_client(
@@ -203,11 +234,8 @@ def install_client(
         force=force,
     )
 
-    # Write back safely
-    config_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(config_path, "w", encoding="utf-8") as f:
-        json.dump(updated_data, f, indent=2)
-        f.write("\n")
+    # Write back atomically with backup and permission preservation
+    atomic_write_json(config_path, updated_data)
 
     return InstallResult(
         client=client,
