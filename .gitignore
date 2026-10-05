@@ -97,6 +97,6 @@ scratch/
 .brud/
 .claude/
 .gemini/
-
-
+# Internal documentation, handoff, and audit reports
 docs/
+docs/**

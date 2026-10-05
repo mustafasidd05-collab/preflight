@@ -13,7 +13,7 @@
 [![Model Context Protocol](https://img.shields.io/badge/MCP-Compatible-purple.svg)](https://modelcontextprotocol.io)
 [![SerpApi](https://img.shields.io/badge/Powered%20By-SerpApi-orange.svg)](https://serpapi.com)
 [![Tests](https://img.shields.io/badge/tests-83%20passing-brightgreen.svg)](tests/)
-[![Security Hardened](https://img.shields.io/badge/Security-Audit%20Passed-blueviolet.svg)](docs/security_audit_report.md)
+[![Security Hardened](https://img.shields.io/badge/Security-Audit%20Passed-blueviolet.svg)](SECURITY.md)
 
 ---
 
