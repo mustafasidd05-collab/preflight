@@ -113,7 +113,10 @@ def merge_config_data(
     Returns (updated_dict, action) where action is 'CREATED' or 'UPDATED'.
     Preserves foreign keys and auto-prunes legacy prototype 'fact-dock' entries.
     """
-    data = dict(existing)
+    if not isinstance(existing, dict):
+        data = {}
+    else:
+        data = dict(existing)
 
     # Determine container key: 'mcp' or 'mcpServers'
     if client == "opencode" and "mcp" in data and "mcpServers" not in data:

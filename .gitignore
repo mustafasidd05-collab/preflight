@@ -93,6 +93,7 @@ claude-rules/
 preflight_implementation_plan.md
 *implementation_plan*.md
 scratch/
+*.pdf
 .agents/
 .brud/
 .claude/

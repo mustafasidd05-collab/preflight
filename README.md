@@ -144,7 +144,7 @@ Preflight supports two transparent evaluation modes:
 
 ```bash
 git clone https://github.com/mustafasidd05-collab/preflight
-cd SerpApi
+cd preflight
 pip install -e ".[dev]"
 ```
 

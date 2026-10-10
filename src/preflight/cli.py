@@ -235,8 +235,10 @@ def cmd_serve(args: argparse.Namespace) -> None:
     """Start the FastMCP stdio or SSE server."""
     if args.serpapi_key:
         os.environ["SERPAPI_API_KEY"] = args.serpapi_key
-    console.print(f"[bold cyan]Starting Preflight MCP Server[/bold cyan] [dim]v{__version__}[/dim]...")
-    console.print("[dim]Transport: stdio (Model Context Protocol)[/dim]")
+    # Informational logs go to stderr so stdout remains purely JSON-RPC for MCP clients
+    err_console = Console(stderr=True, highlight=False)
+    err_console.print(f"[bold cyan]Starting Preflight MCP Server[/bold cyan] [dim]v{__version__}[/dim]...")
+    err_console.print("[dim]Transport: stdio (Model Context Protocol)[/dim]")
     # Run server via FastMCP
     mcp.run(transport="stdio")
 
